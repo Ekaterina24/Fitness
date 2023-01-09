@@ -85,7 +85,7 @@ fun AddCommentScreen(
                 trains.forEach { train ->
                     DropdownMenuItem(onClick = {
                         mSelectedText = train.train
-                        mSelectedId = train.id
+                        mSelectedId = train.id.toString()
                         mExpanded = false
                     }) {
                         Text(text = train.train)

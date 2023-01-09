@@ -31,6 +31,21 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     FitNavHost(mViewModel, navController)
+
+//                    val context = LocalContext.current
+//                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//
+//                        Button(onClick = {
+//
+//                            val createNotification = CreateNotification(context, "My title", "This is the content of notification. It's not so important right now!")
+//                            createNotification.showNotification()
+//
+//                        }) {
+//
+//                            Text(text = "Show notification")
+//                        }
+//                    }
+
                 }
             }
         }

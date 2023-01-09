@@ -4,6 +4,7 @@ data class TrainModel(
     var id: String = "",
     var train: String = "",
     var time: String = "",
-    var timestamp: Long = 0,
-    var uid: String = ""
+    var timestamp: String = "",
+    var uid: String = "",
+//    val firebaseId: String = ""
 )

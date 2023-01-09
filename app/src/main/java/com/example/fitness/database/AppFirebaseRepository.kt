@@ -65,15 +65,16 @@ class AppFirebaseRepository : DatabaseRepository {
 
     override suspend fun createTrain(train: TrainModel, onSuccess: () -> Unit) {
         val timestamp = System.currentTimeMillis()
+        val trainId = database.push().key.toString()
 
         val hashMap = HashMap<String, Any>()
-        hashMap["id"] = "$timestamp"
+        hashMap["id"] = trainId
         hashMap["train"] = TRAIN
         hashMap["time"] = TIME
-        hashMap["timestamp"] = timestamp
+        hashMap["timestamp"] = "$timestamp"
 
         val ref = FirebaseDatabase.getInstance().getReference("Trains")
-        ref.child("$timestamp")
+        ref.child(trainId)
             .setValue(hashMap)
             .addOnSuccessListener {
                 onSuccess()
@@ -87,10 +88,9 @@ class AppFirebaseRepository : DatabaseRepository {
         val timestamp = System.currentTimeMillis()
 
         val hashMap = HashMap<String, Any>()
-        hashMap["id"] = "$timestamp"
         hashMap["train"] = train.train
         hashMap["time"] = train.time
-        hashMap["timestamp"] = timestamp
+        hashMap["timestamp"] = "$timestamp"
 
         val ref = FirebaseDatabase.getInstance().getReference("Trains")
         ref.child(train.id)

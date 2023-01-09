@@ -3,6 +3,7 @@ package com.example.fitness.database
 
 import androidx.lifecycle.LiveData
 import com.example.fitness.model.TrainModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,6 +17,7 @@ class AllTrainsLiveData: LiveData<List<TrainModel>>() {
         override fun onDataChange(snapshot: DataSnapshot) {
             val trains = mutableListOf<TrainModel>()
             snapshot.children.map {
+
                 trains.add(it.getValue(TrainModel::class.java) ?: TrainModel())
             }
             value = trains

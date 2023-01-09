@@ -1,5 +1,6 @@
 package com.example.fitness.screens
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.fitness.CreateNotification
 import com.example.fitness.MainViewModel
 import com.example.fitness.model.TrainModel
 import com.example.fitness.navigation.NavRoute
@@ -32,17 +34,8 @@ fun AdminListTrainScreen(
     viewModel: MainViewModel
 ) {
     val trains = viewModel.getAllTrains().observeAsState(listOf()).value
-    var isButtonVisible by remember { mutableStateOf(true) }
+    Log.d("@@@", "AdminListTrainScreen: $trains")
     Scaffold(
-//        floatingActionButton = {
-//            FloatingActionButton(
-//                onClick = {
-//                    navController.navigate(NavRoute.AddTrain.route)
-//                }
-//            ) {
-//                Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Icons", tint = Color.White)
-//            }
-//        }
     ) {
         Column(
             modifier = Modifier
@@ -53,7 +46,8 @@ fun AdminListTrainScreen(
                 onClick = {
                     navController.navigate(NavRoute.AddTrain.route)
                 },
-                modifier = Modifier.defaultMinSize(minWidth = 56.dp, minHeight = 56.dp)
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 56.dp, minHeight = 56.dp)
                     .alpha(if (EMAIL == "admin@gmail.com") 1f else 0f),
 
                 shape = CircleShape
@@ -95,7 +89,9 @@ fun TrainItem(train: TrainModel, navController: NavHostController) {
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 24.dp)
             .clickable {
-                navController.navigate(NavRoute.AdminDetailTrain.route + "/${train.id}")
+                if (EMAIL == "admin@gmail.com") {
+                    navController.navigate(NavRoute.AdminDetailTrain.route + "/${train.id}")
+                }
             },
         elevation = 6.dp
     ) {
