@@ -16,17 +16,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitness.MainViewModel
-import com.example.fitness.model.CommentModel
-import com.example.fitness.model.TrainModel
+import com.example.fitness.model.FeedbackModel
 import com.example.fitness.navigation.NavRoute
 import com.example.fitness.utils.*
 
 @Composable
-fun AddCommentScreen(
+fun AddFeedbackScreen(
     navController: NavHostController,
     viewModel: MainViewModel
 ) {
-    var comment by remember { mutableStateOf("") }
+    var feedback by remember { mutableStateOf("") }
     val trains = viewModel.getAllTrains().observeAsState(listOf()).value
 
     var isButtonEnabled by remember { mutableStateOf(false) }
@@ -47,19 +46,19 @@ fun AddCommentScreen(
                 .padding(all = 32.dp)
         ) {
             Text(
-                text = "Add Comment",
+                text = "Оставить отзыв",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
             OutlinedTextField(
-                value = comment,
+                value = feedback,
                 onValueChange = {
-                    comment = it
-                    isButtonEnabled = comment.isNotEmpty()
+                    feedback = it
+                    isButtonEnabled = feedback.isNotEmpty()
                 },
-                label = { Text(text = "Comment") },
-                isError = comment.isEmpty()
+                label = { Text(text = "Отзыв") },
+                isError = feedback.isEmpty()
             )
 
             OutlinedTextField(
@@ -71,7 +70,7 @@ fun AddCommentScreen(
 //                        // This value is used to assign to
 //                        // the DropDown the same width
 //                    },
-                label = {Text("Label")},
+                label = {Text("Тренировка")},
                 trailingIcon = {
                     Icon(icon,"contentDescription",
                         Modifier.clickable { mExpanded = !mExpanded })
@@ -85,7 +84,7 @@ fun AddCommentScreen(
                 trains.forEach { train ->
                     DropdownMenuItem(onClick = {
                         mSelectedText = train.train
-                        mSelectedId = train.id.toString()
+                        mSelectedId = train.id
                         mExpanded = false
                     }) {
                         Text(text = train.train)
@@ -97,14 +96,14 @@ fun AddCommentScreen(
                 modifier = Modifier.padding(top = 16.dp),
                 enabled = isButtonEnabled,
                 onClick = {
-                    COMMENT = comment
+                    FEEDBACK = feedback
                     SELECTED_TRAIN = mSelectedId
                     SELECTED_TITLE = mSelectedText
-                    viewModel.addComment(comment = CommentModel(comment = comment, trainId = SELECTED_TRAIN)) {
-                        navController.navigate(NavRoute.AdminCommentList.route)
+                    viewModel.addFeedback(feedback = FeedbackModel(text = feedback, trainId = SELECTED_TRAIN)) {
+                        navController.navigate(NavRoute.FeedbackList.route)
                     }
                 }) {
-                Text(text = "Add train")
+                Text(text = "Сохранить")
             }
         }
     }

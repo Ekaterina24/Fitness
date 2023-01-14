@@ -33,7 +33,7 @@ fun LoginScreen(
                 .padding(all = 32.dp)
         ) {
             Text(
-                text = "Please Login",
+                text = "Авторизация",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -69,7 +69,7 @@ fun LoginScreen(
                 },
                 enabled = email.isNotEmpty() && password.isNotEmpty()
             ) {
-                Text(text = "Login")
+                Text(text = "Войти")
             }
             Button(
                 modifier = Modifier.padding(top = 16.dp),
@@ -77,7 +77,7 @@ fun LoginScreen(
                     navController.navigate(route = NavRoute.Register.route)
                 }
             ) {
-                Text(text = "Create new account")
+                Text(text = "Создать новый аккаунт")
             }
         }
     }

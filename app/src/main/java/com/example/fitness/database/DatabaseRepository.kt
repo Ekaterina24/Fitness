@@ -1,15 +1,13 @@
 package com.example.fitness.database
 
 import androidx.lifecycle.LiveData
-import com.example.fitness.model.CommentModel
+import com.example.fitness.model.FeedbackModel
 import com.example.fitness.model.TrainModel
 
 interface DatabaseRepository {
 
     val readAllTrains: LiveData<List<TrainModel>>
-    val readAllComments: LiveData<List<CommentModel>>
-
-    fun signOut() {}
+    val readAllFeedback: LiveData<List<FeedbackModel>>
 
     fun registerUser(onSuccess: ()-> Unit, onFail: (String)-> Unit) {}
 
@@ -21,6 +19,6 @@ interface DatabaseRepository {
 
     suspend fun deleteTrain(train: TrainModel, onSuccess: ()-> Unit)
 
-    suspend fun createComment(comment: CommentModel, onSuccess: ()-> Unit)
+    suspend fun createFeedback(feedback: FeedbackModel, onSuccess: ()-> Unit)
 
 }

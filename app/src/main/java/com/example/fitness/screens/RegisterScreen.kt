@@ -36,7 +36,7 @@ fun RegisterScreen(navController: NavHostController,
                 .padding(all = 32.dp)
         ) {
             Text(
-                text = "Create New Account",
+                text = "Создать новый аккаунт",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -79,14 +79,22 @@ fun RegisterScreen(navController: NavHostController,
                     EMAIL = email
                     NAME = name
                     PASSWORD = password
-                    Log.d("@@@", "RegisterScreen: $EMAIL")
                     viewModel.connectToRegisterUser {
                         navController.navigate(route = NavRoute.Login.route)
                     }
                 },
                 enabled = name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && cPassword.isNotEmpty()
             ) {
-                Text(text = "Register")
+                Text(text = "Зарегистрироваться")
+            }
+            Button(
+                modifier = Modifier
+                    .padding(top = 16.dp),
+                onClick = {
+                    navController.navigate(NavRoute.Login.route)
+                }
+            ) {
+                Text(text = "Назад")
             }
         }
     }

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.fitness.database.AppFirebaseRepository
-import com.example.fitness.model.CommentModel
+import com.example.fitness.model.FeedbackModel
 import com.example.fitness.model.TrainModel
 import com.example.fitness.utils.REPOSITORY
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val context = application
 
     fun getAllTrains() = REPOSITORY.readAllTrains
-    fun getAllComments() = REPOSITORY.readAllComments
+    fun getAllFeedback() = REPOSITORY.readAllFeedback
 
     fun connectToRegisterUser(onSuccess: () -> Unit) {
         REPOSITORY = AppFirebaseRepository()
@@ -66,9 +66,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun addComment(comment: CommentModel, onSuccess: () -> Unit) {
+    fun addFeedback(feedback: FeedbackModel, onSuccess: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            REPOSITORY.createComment(comment = comment) {
+            REPOSITORY.createFeedback(feedback = feedback) {
                 viewModelScope.launch(Dispatchers.Main) {
                     onSuccess()
                 }

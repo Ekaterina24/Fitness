@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -25,30 +24,28 @@ fun AdminChooseScreen(
         ) {
             Button(
                 modifier = Modifier
-                    .padding(top = 16.dp)
-                    .padding(horizontal = 32.dp)
-                    .fillMaxWidth(),
+                    .padding(top = 16.dp),
                 onClick = {
                     navController.navigate(NavRoute.Login.route)
                 }
             ) {
-                Text(text = "Back")
+                Text(text = "Назад")
             }
             Button(
                 modifier = Modifier.padding(top = 16.dp),
                 onClick = {
-                    navController.navigate(route = NavRoute.AdminListTrain.route)
+                    navController.navigate(route = NavRoute.ListTrain.route)
                 },
             ) {
-                Text(text = "Trainings")
+                Text(text = "Тренировки")
             }
             Button(
                 modifier = Modifier.padding(top = 16.dp),
                 onClick = {
-                    navController.navigate(route = NavRoute.AdminCommentList.route)
+                    navController.navigate(route = NavRoute.FeedbackList.route)
                 }
             ) {
-                Text(text = "Comments")
+                Text(text = "Отзывы")
             }
         }
     }

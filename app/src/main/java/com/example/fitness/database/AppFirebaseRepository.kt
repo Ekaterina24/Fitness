@@ -2,7 +2,7 @@ package com.example.fitness.database
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.example.fitness.model.CommentModel
+import com.example.fitness.model.FeedbackModel
 import com.example.fitness.model.TrainModel
 import com.example.fitness.utils.*
 import com.google.firebase.auth.FirebaseAuth
@@ -16,11 +16,7 @@ class AppFirebaseRepository : DatabaseRepository {
         .child(mAuth.currentUser?.uid.toString())
 
     override val readAllTrains: LiveData<List<TrainModel>> = AllTrainsLiveData()
-    override val readAllComments: LiveData<List<CommentModel>> = AllCommentsLiveData()
-
-    override fun signOut() {
-        super.signOut()
-    }
+    override val readAllFeedback: LiveData<List<FeedbackModel>> = AllFeedbackLiveData()
 
     override fun loginUser(onSuccess: () -> Unit, onFail: (String) -> Unit) {
         mAuth.signInWithEmailAndPassword(EMAIL, PASSWORD)
@@ -110,7 +106,7 @@ class AppFirebaseRepository : DatabaseRepository {
             .addOnFailureListener { Log.d("checkData", "Failed to delete train") }
     }
 
-    override suspend fun createComment(comment: CommentModel, onSuccess: () -> Unit) {
+    override suspend fun createFeedback(feedback: FeedbackModel, onSuccess: () -> Unit) {
         val timestamp = System.currentTimeMillis()
 
         val hashMap = HashMap<String, Any>()
@@ -118,17 +114,17 @@ class AppFirebaseRepository : DatabaseRepository {
         hashMap["trainId"] = SELECTED_TRAIN
         hashMap["trainTitle"] = SELECTED_TITLE
         hashMap["user"] = EMAIL
-        hashMap["comment"] = COMMENT
+        hashMap["text"] = FEEDBACK
         hashMap["timestamp"] = timestamp
 
-        val ref = FirebaseDatabase.getInstance().getReference("Comments")
+        val ref = FirebaseDatabase.getInstance().getReference("Feedback")
         ref.child("$timestamp")
             .setValue(hashMap)
             .addOnSuccessListener {
                 onSuccess()
             }
             .addOnFailureListener { e ->
-                Log.d("checkData", "Failed to add new comment")
+                Log.d("checkData", "Failed to add new feedback")
             }
     }
 }

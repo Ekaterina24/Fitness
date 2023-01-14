@@ -15,36 +15,25 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitness.MainViewModel
-import com.example.fitness.model.CommentModel
 import com.example.fitness.model.TrainModel
 import com.example.fitness.navigation.NavRoute
 import com.example.fitness.utils.EMAIL
-import com.example.fitness.utils.NAME
-import com.example.fitness.utils.SELECTED_TITLE
 
 @Composable
-fun AdminCommentListScreen(
+fun ListTrainScreen(
     navController: NavHostController,
     viewModel: MainViewModel
 ) {
-    val comments = viewModel.getAllComments().observeAsState(listOf()).value
+    val trains = viewModel.getAllTrains().observeAsState(listOf()).value
 
     Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navController.navigate(NavRoute.AddComment.route)
-                }
-            ) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Icons", tint = Color.White)
-            }
-        }
     ) {
         Column(
             modifier = Modifier
@@ -52,25 +41,50 @@ fun AdminCommentListScreen(
                 .padding(all = 32.dp)
         ) {
             Button(
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .padding(horizontal = 32.dp)
-                    .fillMaxWidth(),
                 onClick = {
-                    navController.navigate(NavRoute.AdminChoose.route)
-                }
-            ) {
-                Text(text = "Back to Choose")
+                    navController.navigate(NavRoute.AddTrain.route)
+                },
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 56.dp, minHeight = 56.dp)
+                    .alpha(if (EMAIL == "admin@gmail.com") 1f else 0f),
+
+                shape = CircleShape
+
+            ){
+                Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Icons", tint = Color.White)
             }
+
+            if (EMAIL == "admin@gmail.com") {
+                Button(
+                    modifier = Modifier
+                        .padding(top = 16.dp),
+                    onClick = {
+                        navController.navigate(NavRoute.AdminChoose.route)
+                    }
+                ) {
+                    Text(text = "На главную")
+                }
+            } else {
+                Button(
+                    modifier = Modifier
+                        .padding(top = 16.dp),
+                    onClick = {
+                        navController.navigate(NavRoute.UserChoose.route)
+                    }
+                ) {
+                    Text(text = "На главную")
+                }
+            }
+
             Text(
-                text = "Create Comment",
+                text = "Список тренировок",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
             LazyColumn{
-                items(comments) { comment ->
-                    CommentItem(comment = comment, navController = navController)
+                items(trains) { train ->
+                    TrainItem(train = train, navController = navController)
                 }
             }
         }
@@ -79,27 +93,27 @@ fun AdminCommentListScreen(
 }
 
 @Composable
-fun CommentItem(comment: CommentModel, navController: NavHostController) {
+fun TrainItem(train: TrainModel, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 24.dp)
             .clickable {
-//                navController.navigate(NavRoute.AdminDetailTrain.route + "/{${day.id}}")
+                if (EMAIL == "admin@gmail.com") {
+                    navController.navigate(NavRoute.AdminDetailTrain.route + "/${train.id}")
+                }
             },
         elevation = 6.dp
     ) {
         Column(modifier = Modifier.padding(vertical = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = comment.user,
+            Text(text = train.train,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-            Text(text = comment.comment,
-                fontSize = 18.sp
-            )
-            Text(text = comment.trainTitle,
-                fontSize = 16.sp
+            Text(text = train.time,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
             )
         }
     }

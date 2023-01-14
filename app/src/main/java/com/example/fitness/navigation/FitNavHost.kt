@@ -11,12 +11,12 @@ import com.example.fitness.utils.TRAIN_ID
 sealed class NavRoute(val route: String) {
     object Login : NavRoute("login_screen")
     object Register : NavRoute("register_screen")
-    object AdminListTrain : NavRoute("admin_list_train")
+    object ListTrain : NavRoute("list_train")
     object AdminDetailTrain : NavRoute("admin_detail_train")
     object AdminChoose : NavRoute("admin_choose")
     object AddTrain : NavRoute("add_train")
-    object AdminCommentList : NavRoute("admin_comment_list")
-    object AddComment : NavRoute("add_comment")
+    object FeedbackList : NavRoute("feedback_list")
+    object AddFeedback : NavRoute("add_feedback")
     object UserChoose : NavRoute("user_choose")
 }
 
@@ -37,14 +37,14 @@ fun FitNavHost(
                 viewModel = mViewModel
             )
         }
-        composable(NavRoute.AdminListTrain.route) {
-            AdminListTrainScreen(
+        composable(NavRoute.ListTrain.route) {
+            ListTrainScreen(
                 navController = navController,
                 viewModel = mViewModel
             )
         }
-        composable(NavRoute.AddComment.route) {
-            AddCommentScreen(
+        composable(NavRoute.AddFeedback.route) {
+            AddFeedbackScreen(
                 navController = navController,
                 viewModel = mViewModel
             )
@@ -55,8 +55,8 @@ fun FitNavHost(
                 viewModel = mViewModel
             )
         }
-        composable(NavRoute.AdminCommentList.route) {
-            AdminCommentListScreen(
+        composable(NavRoute.FeedbackList.route) {
+            FeedbackListScreen(
                 navController = navController,
                 viewModel = mViewModel
             )

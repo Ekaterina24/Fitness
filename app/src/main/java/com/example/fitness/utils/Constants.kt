@@ -9,10 +9,6 @@ lateinit var PASSWORD: String
 lateinit var TRAIN: String
 lateinit var TIME: String
 lateinit var SELECTED_TRAIN: String
-lateinit var COMMENT: String
-lateinit var COMMENT_TRAIN: String
+lateinit var FEEDBACK: String
 lateinit var SELECTED_TITLE: String
-lateinit var CURRENT_USER: String
 const val TRAIN_ID = "Id"
-
-lateinit var USER_TYPE: String

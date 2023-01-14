@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.fitness.MainViewModel
 import com.example.fitness.navigation.NavRoute
 
 @Composable
@@ -25,30 +24,28 @@ fun UserChooseScreen(
         ) {
             Button(
                 modifier = Modifier
-                    .padding(top = 16.dp)
-                    .padding(horizontal = 32.dp)
-                    .fillMaxWidth(),
+                    .padding(top = 16.dp),
                 onClick = {
                     navController.navigate(NavRoute.Login.route)
                 }
             ) {
-                Text(text = "Back")
+                Text(text = "Назад")
             }
             Button(
                 modifier = Modifier.padding(top = 16.dp),
                 onClick = {
-                    navController.navigate(route = NavRoute.AdminListTrain.route)
+                    navController.navigate(route = NavRoute.ListTrain.route)
                 }
             ) {
-                Text(text = "Show Timetable")
+                Text(text = "Показать расписание")
             }
             Button(
                 modifier = Modifier.padding(top = 16.dp),
                 onClick = {
-                    navController.navigate(route = NavRoute.AdminCommentList.route)
+                    navController.navigate(route = NavRoute.FeedbackList.route)
                 }
             ) {
-                Text(text = "Comments")
+                Text(text = "Отзывы")
             }
         }
     }

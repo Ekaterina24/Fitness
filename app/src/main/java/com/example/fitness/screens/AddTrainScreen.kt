@@ -35,7 +35,7 @@ fun AddTrainScreen(
                 .padding(all = 32.dp)
         ) {
             Text(
-                text = "Add Train",
+                text = "Добавить тренировку",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -46,7 +46,7 @@ fun AddTrainScreen(
                     train = it
                     isButtonEnabled = train.isNotEmpty()
                 },
-                label = { Text(text = "Train") },
+                label = { Text(text = "Название") },
                 isError = train.isEmpty()
             )
             OutlinedTextField(
@@ -55,7 +55,7 @@ fun AddTrainScreen(
                     time = it
                     isButtonEnabled = time.isNotEmpty()
                 },
-                label = { Text(text = "Time") },
+                label = { Text(text = "Время") },
                 isError = time.isEmpty()
             )
 
@@ -66,10 +66,10 @@ fun AddTrainScreen(
                     TRAIN = train
                     TIME = time
                     viewModel.addTrain(train = TrainModel(train = train, time = time)) {
-                        navController.navigate(NavRoute.AdminListTrain.route)
+                        navController.navigate(NavRoute.ListTrain.route)
                     }
                 }) {
-                Text(text = "Add train")
+                Text(text = "Сохранить")
             }
         }
     }
