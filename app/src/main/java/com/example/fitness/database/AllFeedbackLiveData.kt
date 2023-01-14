@@ -13,11 +13,11 @@ class AllFeedbackLiveData: LiveData<List<FeedbackModel>>() {
 
     private val listener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
-            val comments = mutableListOf<FeedbackModel>()
+            val feedback = mutableListOf<FeedbackModel>()
             snapshot.children.map {
-                comments.add(it.getValue(FeedbackModel::class.java) ?: FeedbackModel())
+                feedback.add(it.getValue(FeedbackModel::class.java) ?: FeedbackModel())
             }
-            value = comments
+            value = feedback
         }
 
         override fun onCancelled(error: DatabaseError) {}

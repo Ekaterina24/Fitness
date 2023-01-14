@@ -5,6 +5,5 @@ data class TrainModel(
     var train: String = "",
     var time: String = "",
     var timestamp: String = "",
-    var uid: String = "",
-//    val firebaseId: String = ""
+    var uid: String = ""
 )
